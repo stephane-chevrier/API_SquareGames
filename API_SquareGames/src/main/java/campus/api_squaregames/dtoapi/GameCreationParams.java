@@ -25,7 +25,7 @@ public class GameCreationParams {
 
     /**
      * Getter du playerCount
-     * @return
+     * @return int
      */
     public int getPlayerCount() {
         return playerCount;

@@ -3,9 +3,7 @@ package campus.api_squaregames.controleur;
 import campus.api_squaregames.dtoapi.GameCreationParams;
 import campus.api_squaregames.entity.GameEntity;
 import fr.le_campus_numerique.square_games.engine.*;
-import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
-import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
-import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
@@ -15,6 +13,12 @@ public class GameServiceImpl implements GameService {
     // creation des variables d'instance
     public Map<UUID, GameEntity> gamePartMap = new HashMap<>();
 
+    @Autowired
+    List<GamePlugin> factories = new ArrayList<>();
+
+    // creation
+//    @Autowired
+//    GamePluginTicTacToe gamePluginTicTacToe;
 
     /**
      * method de creation d'une partie
@@ -23,29 +27,46 @@ public class GameServiceImpl implements GameService {
      */
     public GameEntity createGameService(GameCreationParams gameCreationParams) {
 
+        int index = this.factories.indexOf(gameCreationParams.getGameType());
+
         // Creation d'un objet GameFactory et GameEntity
-        GameFactory gameFactory = null;
+        GameFactory gameFactory = this.factories.get(index).getGameFactory();
         GameEntity gameEntity = new GameEntity();
+
+
 
         // creation du bon jeu en fonction du GameType de gameCreationParams
         switch (gameCreationParams.getGameType()) {
 
             // Creation d'un jeu TicTacToe
             case ("tictactoe") -> {
-                gameFactory = new TicTacToeGameFactory();
+//                gamePlugin = gamePluginTicTacToe;
             }
             // Creation d'un jeu 15 puzzle
             case ("15 puzzle") -> {
-                gameFactory = new TaquinGameFactory();
+//                gameFactory = new TaquinGameFactory();
             }
             // Creation d'un jeu connect4
             case ("connect4") -> {
-                gameFactory = new ConnectFourGameFactory();
+//                gameFactory = new ConnectFourGameFactory();
             }
         }
 
-        // Création du game
-        Game game = gameFactory.createGame(gameCreationParams.getPlayerCount(),gameCreationParams.getBoardSize());
+        // Initialisation du nombre de joueurs reçus par la requete et par défaut
+        int nombreJoueursRecus = gameCreationParams.getPlayerCount();
+        int nombreJoueursDefaut = this.factories.get(index).getDefaultPlayerCount();
+
+        // Affichage d'un message si incohérence
+        if (nombreJoueursRecus!=nombreJoueursDefaut) {
+            if (nombreJoueursRecus==0) {
+                System.out.println("Vous n'avez pas spécifié le nombre de joueurs, il est par defaut "+nombreJoueursDefaut+" pour ce jeu.");
+            } else {
+                System.out.println(nombreJoueursRecus+" joueurs n'est pas correct, seul "+nombreJoueursDefaut+" est autorisé.");
+            }
+        }
+        // Création du game avec le nombre de joueurs par defaut
+//        Game game = gamePlugin.getGameFactory().createGame();
+        Game game = gameFactory.createGame(nombreJoueursDefaut,gameCreationParams.getBoardSize());
 
         // Transfert du game au gameEntity
         gameEntity.setGameStatus(game.getStatus());

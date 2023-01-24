@@ -6,9 +6,6 @@ import campus.api_squaregames.dtoapi.GameDto;
 import campus.api_squaregames.entity.GameEntity;
 import fr.le_campus_numerique.square_games.engine.GameStatus;
 
-import java.util.Map;
-import java.util.UUID;
-
 public interface GameService {
 
     /**
