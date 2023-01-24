@@ -1,40 +1,19 @@
-package campus.api_squaregames;
+package campus.api_squaregames.controleur;
 
+import campus.api_squaregames.dtoapi.GameCreationParams;
+import campus.api_squaregames.entity.GameEntity;
 import fr.le_campus_numerique.square_games.engine.*;
 import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
 import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
 import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Service
 public class GameServiceImpl implements GameService {
 
     // creation des variables d'instance
-    public Map<Integer,GamePart> gamePartMap = new HashMap<>();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public Map<UUID, GameEntity> gamePartMap = new HashMap<>();
 
 
     /**
@@ -42,10 +21,11 @@ public class GameServiceImpl implements GameService {
      * @param gameCreationParams
      * @return
      */
-    public Game createGameService(GameCreationParams gameCreationParams) {
+    public GameEntity createGameService(GameCreationParams gameCreationParams) {
 
-        // Creation d'un objet game
+        // Creation d'un objet GameFactory et GameEntity
         GameFactory gameFactory = null;
+        GameEntity gameEntity = new GameEntity();
 
         // creation du bon jeu en fonction du GameType de gameCreationParams
         switch (gameCreationParams.getGameType()) {
@@ -63,13 +43,25 @@ public class GameServiceImpl implements GameService {
                 gameFactory = new ConnectFourGameFactory();
             }
         }
-        // retour des attributs de Game necessaires
-        return gameFactory.createGame(gameCreationParams.getPlayerCount(),gameCreationParams.getBoardSize());
+
+        // Création du game
+        Game game = gameFactory.createGame(gameCreationParams.getPlayerCount(),gameCreationParams.getBoardSize());
+
+        // Transfert du game au gameEntity
+        gameEntity.setGameStatus(game.getStatus());
+        gameEntity.setBoard(game.getBoard());
+        gameEntity.setUuid(UUID.randomUUID());
+
+        // implémentation de la liste des parties avec la partie en-cours de création
+        gamePartMap.put(gameEntity.getUuid(), gameEntity);
+
+        // retour de gameEntity
+        return gameEntity;
     }
 
     /**
      * method de retour du status d'une partie
-     * @param int
+     * @param
      * @return GameStatus
      */
     public GameStatus getGameStatusService(int gameId) {
@@ -78,12 +70,5 @@ public class GameServiceImpl implements GameService {
 
     }
 
-    /**
-     * Getter de gamePartMap
-     * @return Map<Integer,GamePart>
-     */
-    public Map<Integer, GamePart> getGamePartMap() {
-        return gamePartMap;
-    }
 }
 

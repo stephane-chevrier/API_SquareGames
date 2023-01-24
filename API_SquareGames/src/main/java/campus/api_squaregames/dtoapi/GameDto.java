@@ -1,4 +1,4 @@
-package campus.api_squaregames;
+package campus.api_squaregames.dtoapi;
 
 import fr.le_campus_numerique.square_games.engine.CellPosition;
 import fr.le_campus_numerique.square_games.engine.GameStatus;
@@ -7,10 +7,9 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class GamePart {
+public class GameDto {
 
     // création des variables d'instance
-    private int gamePartId;
     private GameStatus gameStatus;
     private UUID uuid;
     private Map<CellPosition, Token> board;
@@ -58,11 +57,4 @@ public class GamePart {
         return board;
     }
 
-    public int getGamePartId() {
-        return gamePartId;
-    }
-
-    public void setGamePartId(int gamePartId) {
-        this.gamePartId = gamePartId;
-    }
 }
