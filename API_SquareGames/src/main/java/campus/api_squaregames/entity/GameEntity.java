@@ -14,6 +14,16 @@ public class GameEntity {
     private UUID uuid;
     private Map<CellPosition, Token> board;
 
+    private int boardSize;
+
+    public int getBoardSize() {
+        return boardSize;
+    }
+
+    public void setBoardSize(int boardSize) {
+        this.boardSize = boardSize;
+    }
+
     public UUID getUuid() {
         return uuid;
     }

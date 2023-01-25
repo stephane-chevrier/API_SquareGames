@@ -6,6 +6,7 @@ import fr.le_campus_numerique.square_games.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -16,10 +17,6 @@ public class GameServiceImpl implements GameService {
     @Autowired
     List<GamePlugin> factories = new ArrayList<>();
 
-    // creation
-//    @Autowired
-//    GamePluginTicTacToe gamePluginTicTacToe;
-
     /**
      * method de creation d'une partie
      * @param gameCreationParams
@@ -27,30 +24,15 @@ public class GameServiceImpl implements GameService {
      */
     public GameEntity createGameService(GameCreationParams gameCreationParams) {
 
-        int index = this.factories.indexOf(gameCreationParams.getGameType());
+        // recuperation de l'index de gameType de la requete dans la liste des factories
+        int index = factories.stream()
+                .map(o -> o.getName().toLowerCase())
+                .toList()
+                .indexOf(gameCreationParams.getGameType().toLowerCase());
 
         // Creation d'un objet GameFactory et GameEntity
         GameFactory gameFactory = this.factories.get(index).getGameFactory();
         GameEntity gameEntity = new GameEntity();
-
-
-
-        // creation du bon jeu en fonction du GameType de gameCreationParams
-        switch (gameCreationParams.getGameType()) {
-
-            // Creation d'un jeu TicTacToe
-            case ("tictactoe") -> {
-//                gamePlugin = gamePluginTicTacToe;
-            }
-            // Creation d'un jeu 15 puzzle
-            case ("15 puzzle") -> {
-//                gameFactory = new TaquinGameFactory();
-            }
-            // Creation d'un jeu connect4
-            case ("connect4") -> {
-//                gameFactory = new ConnectFourGameFactory();
-            }
-        }
 
         // Initialisation du nombre de joueurs reçus par la requete et par défaut
         int nombreJoueursRecus = gameCreationParams.getPlayerCount();
@@ -72,6 +54,7 @@ public class GameServiceImpl implements GameService {
         gameEntity.setGameStatus(game.getStatus());
         gameEntity.setBoard(game.getBoard());
         gameEntity.setUuid(UUID.randomUUID());
+        gameEntity.setBoardSize(game.getBoardSize());
 
         // implémentation de la liste des parties avec la partie en-cours de création
         gamePartMap.put(gameEntity.getUuid(), gameEntity);

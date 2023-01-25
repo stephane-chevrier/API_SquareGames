@@ -58,6 +58,7 @@ public class GameController {
         gameDto.setGameStatus(gameEntity.getGameStatus());
         gameDto.setBoard(gameEntity.getBoard());
         gameDto.setUuid(gameEntity.getUuid());
+        gameDto.setBoardSize(gameEntity.getBoardSize());
 
         // retour de l'objet GamePart qui contient les elements d'une partie
         return gameDto;

@@ -1,26 +1,24 @@
 package campus.api_squaregames.controleur;
 
 import fr.le_campus_numerique.square_games.engine.GameFactory;
-import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
+import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.util.Locale;
 
 @Component
-public class GamePluginTicTacToe implements GamePlugin {
-
-
+public class GamePluginTaquin implements GamePlugin {
 
     // Creation propriete name avec une valeur par défaut definie dans le fichier application.properties
-    @Value("${TicTacToe.name}")
+    @Value("${Taquin.name}")
     private String name;
 
     // Creation propriete defaultPlayerCount avec une valeur par défaut definie dans le fichier application.properties
-    @Value("${TicTacToe.defaultPlayerCount}")
+    @Value("${Taquin.defaultPlayerCount}")
     private int defaultPlayerCount;
 
     // Creation objet GameFactory
-    private GameFactory gameFactory = new TicTacToeGameFactory();
+    private GameFactory gameFactory = new TaquinGameFactory();
 
     /**
      * Methode de recuperation de GameFactory

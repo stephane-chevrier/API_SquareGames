@@ -13,6 +13,15 @@ public class GameDto {
     private GameStatus gameStatus;
     private UUID uuid;
     private Map<CellPosition, Token> board;
+    private int BoardSize;
+
+    public int getBoardSize() {
+        return BoardSize;
+    }
+
+    public void setBoardSize(int boardSize) {
+        BoardSize = boardSize;
+    }
 
     /**
      * Setter de gameStatus
