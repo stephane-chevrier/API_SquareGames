@@ -9,8 +9,6 @@ import java.util.Locale;
 @Component
 public class GamePluginTicTacToe implements GamePlugin {
 
-
-
     // Creation propriete name avec une valeur par défaut definie dans le fichier application.properties
     @Value("${TicTacToe.name}")
     private String name;

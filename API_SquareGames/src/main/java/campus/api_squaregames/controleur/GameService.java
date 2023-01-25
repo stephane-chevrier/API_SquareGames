@@ -13,9 +13,16 @@ public interface GameService {
      * @param gameCreationParams
      * @return
      */
-    GameEntity createGameService(GameCreationParams gameCreationParams);
+    GameEntity createGameService(GameCreationParams gameCreationParams, String entete);
 
 
     GameStatus getGameStatusService(int gameId);
 
+    /**
+     * methode de retour des attributs de GamePart
+     * @param gameEntity
+     * @param entete
+     * @return GamePart
+     */
+    GameDto getGamePart(GameEntity gameEntity);
 }

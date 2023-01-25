@@ -1,18 +1,23 @@
 package campus.api_squaregames.controleur;
 
 import campus.api_squaregames.dtoapi.GameCreationParams;
+import campus.api_squaregames.dtoapi.GameDto;
 import campus.api_squaregames.entity.GameEntity;
 import fr.le_campus_numerique.square_games.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class GameServiceImpl implements GameService {
 
     // creation des variables d'instance
     public Map<UUID, GameEntity> gamePartMap = new HashMap<>();
+
+    @Value("en")
+    private Locale langue;
+
 
     @Autowired
     List<GamePlugin> factories = new ArrayList<>();
@@ -22,11 +27,16 @@ public class GameServiceImpl implements GameService {
      * @param gameCreationParams
      * @return
      */
-    public GameEntity createGameService(GameCreationParams gameCreationParams) {
+    public GameEntity createGameService(GameCreationParams gameCreationParams, String langage) {
+
+        this.langue = Locale.forLanguageTag(langage);
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("message",langue);
+        System.out.println(resourceBundle.getString("messageBienvenue"));
 
         // recuperation de l'index de gameType de la requete dans la liste des factories
         int index = factories.stream()
                 .map(o -> o.getName().toLowerCase())
+
                 .toList()
                 .indexOf(gameCreationParams.getGameType().toLowerCase());
 
@@ -47,7 +57,6 @@ public class GameServiceImpl implements GameService {
             }
         }
         // Création du game avec le nombre de joueurs par defaut
-//        Game game = gamePlugin.getGameFactory().createGame();
         Game game = gameFactory.createGame(nombreJoueursDefaut,gameCreationParams.getBoardSize());
 
         // Transfert du game au gameEntity
@@ -74,5 +83,27 @@ public class GameServiceImpl implements GameService {
 
     }
 
+    /**
+     * methode de retour des attributs de GamePart
+     * @param gameEntity
+     * @param
+     * @return GamePart
+     */
+    @Override
+    public GameDto getGamePart(GameEntity gameEntity /*, String entete */) {
+
+
+        // creation d'un objet GamePart
+        GameDto gameDto = new GameDto();
+
+        // initialisation des valeurs des objets GameStatus, UUID, Map<CellPosition, Token>, gamePartId dans objet GamePart
+        gameDto.setGameStatus(gameEntity.getGameStatus());
+        gameDto.setBoard(gameEntity.getBoard());
+        gameDto.setUuid(gameEntity.getUuid());
+        gameDto.setBoardSize(gameEntity.getBoardSize());
+
+        // retour de l'objet GamePart qui contient les elements d'une partie
+        return gameDto;
+    }
 }
 
