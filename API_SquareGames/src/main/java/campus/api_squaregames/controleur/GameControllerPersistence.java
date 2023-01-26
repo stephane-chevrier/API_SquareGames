@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.SQLException;
+
 @RestController
 public class GameControllerPersistence {
 
@@ -19,7 +21,7 @@ public class GameControllerPersistence {
      * @param
      */
     @PostMapping(value = "/addgame")
-    public void SauveGame(@RequestBody GameDtoPersistence gameDtoPersistence) {
+    public void SauveGame(@RequestBody GameDtoPersistence gameDtoPersistence) throws SQLException {
         gameServicePersistence.setGameEntity(gameDtoPersistence);
     }
 }

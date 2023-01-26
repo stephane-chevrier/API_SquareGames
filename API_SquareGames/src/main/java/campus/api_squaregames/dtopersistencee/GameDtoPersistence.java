@@ -19,8 +19,8 @@ public class GameDtoPersistence {
      *
      * @return the game status
      */
-    public GameStatus getGameStatus() {
-        return gameStatus;
+    public String getGameStatus() {
+        return gameStatus.toString();
     }
 
     /**
@@ -37,8 +37,8 @@ public class GameDtoPersistence {
      *
      * @return the uuid
      */
-    public UUID getUuid() {
-        return uuid;
+    public String getUuid() {
+        return uuid.toString();
     }
 
     /**

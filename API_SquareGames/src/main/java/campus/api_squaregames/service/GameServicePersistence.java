@@ -5,21 +5,21 @@ import campus.api_squaregames.daopersistence.GameDaoMySql;
 import campus.api_squaregames.dtopersistencee.*;
 import org.springframework.stereotype.Service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 /**
  * The type Game service persistence.
  */
 @Service
 public class GameServicePersistence {
 
-//    public GameEntity gameEntity = new GameEntity();  // Pourquoi pas de Pb de compilation, il existe deja !
-
-
     /**
      * Sets game entity.
      *
      * @param gameDtoPersistence the game dto persistence
      */
-    public void setGameEntity(GameDtoPersistence gameDtoPersistence) {
+    public void setGameEntity(GameDtoPersistence gameDtoPersistence) throws SQLException {
         GameDao gameDao = new GameDaoMySql();
         gameDao.addGamePersistence(gameDtoPersistence);
     }

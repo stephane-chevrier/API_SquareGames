@@ -3,6 +3,7 @@ package campus.api_squaregames.daopersistence;
 import campus.api_squaregames.dtopersistencee.*;
 import campus.api_squaregames.entity.GameEntity;
 
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.UUID;
 
@@ -12,7 +13,7 @@ public interface GameDao {
      * Methode d'ajout d'un jeu dans la persistence
      * @param gameEntity
      */
-    void addGamePersistence(GameDtoPersistence gameDtoPersistence);
+    void addGamePersistence(GameDtoPersistence gameDtoPersistence) throws SQLException;
     /**
      * Methode de suppression d'un jeu dans la persistence
      * @param gameEntity
