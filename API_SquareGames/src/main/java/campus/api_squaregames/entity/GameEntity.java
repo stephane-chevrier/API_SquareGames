@@ -13,7 +13,6 @@ public class GameEntity {
     private GameStatus gameStatus;
     private UUID uuid;
     private Map<CellPosition, Token> board;
-
     private int boardSize;
 
     public int getBoardSize() {

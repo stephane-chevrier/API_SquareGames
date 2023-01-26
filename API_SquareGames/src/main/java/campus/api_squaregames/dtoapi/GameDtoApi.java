@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class GameDto {
+public class GameDtoApi {
 
     // création des variables d'instance
     private GameStatus gameStatus;

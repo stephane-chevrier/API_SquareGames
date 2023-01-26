@@ -1,8 +1,8 @@
-package campus.api_squaregames.controleur;
+package campus.api_squaregames.service;
 
 
 import campus.api_squaregames.dtoapi.GameCreationParams;
-import campus.api_squaregames.dtoapi.GameDto;
+import campus.api_squaregames.dtoapi.GameDtoApi;
 import campus.api_squaregames.entity.GameEntity;
 import fr.le_campus_numerique.square_games.engine.GameStatus;
 
@@ -24,5 +24,5 @@ public interface GameService {
      * @param entete
      * @return GamePart
      */
-    GameDto getGamePart(GameEntity gameEntity);
+    GameDtoApi getGamePart(GameEntity gameEntity);
 }
