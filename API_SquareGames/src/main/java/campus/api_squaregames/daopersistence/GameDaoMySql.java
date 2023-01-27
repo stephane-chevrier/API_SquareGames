@@ -5,12 +5,16 @@ import campus.api_squaregames.entity.GameEntity;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Component
 public class GameDaoMySql implements GameDao {
 
+    @Override
+    public Connection initConnexionMySql() throws SQLException {
+        return SingletonConnexion.getInstance().getConnexion();
+    }
     /**
      * Methode d'ajout d'un jeu dans la persistence
      * @param gameDtoPersistence
@@ -19,7 +23,7 @@ public class GameDaoMySql implements GameDao {
     public void addGamePersistence(GameDtoPersistence gameDtoPersistence) throws SQLException {
 
         // Initialisation de la connexion si elle n'existe pas
-        Connection connexion = SingletonConnexion.getInstance().getConnexion();
+        Connection connexion = initConnexionMySql();
 
         // Initialisation de la requete avec les proprietes de gameDtoPersistence recu en parametre
         String requete = "INSERT INTO game (board_size,uuid,game_status) VALUES (?,?,?)";
@@ -61,13 +65,41 @@ public class GameDaoMySql implements GameDao {
         // Code à implémenter
         return null;
     }
+
     /**
      * Methode de recuperation de la liste des jeux
      * @return Map<UUID,GameEntity>
      */
     @Override
-    public Map<UUID,GameEntity> getGameListPersistence() {
-        // Code à implémenter
-        return null;
+    public ArrayList<GameReturnGetListByStatus> getGameListPersistence(GameGetListByStatus gameGetListByStatus) throws SQLException {
+
+        // Initialisation de la liste d'objets de retour et de l'objet de retour
+        ArrayList<GameReturnGetListByStatus> ArrayListRetour = new ArrayList<GameReturnGetListByStatus>();
+        GameReturnGetListByStatus retour = new GameReturnGetListByStatus();
+
+        // Initialisation de la connexion si elle n'existe pas
+        Connection connexion = initConnexionMySql();
+
+        // Initialisation de la requete avec les proprietes de gameDtoPersistence recu en parametre
+        String requete = "SELECT * FROM game WHERE game_status = ?";
+
+        // Preparation de l'envoi de la requete
+        PreparedStatement statement = connexion.prepareStatement(requete);
+        statement.setString(1,gameGetListByStatus.getGameStatus());
+
+        // Envoi de la requete et recuperation du resultat
+        ResultSet resultSet = statement.executeQuery();
+
+        // recuperation des donnees du resultSet
+        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+        while (resultSet.next()) {
+            retour.setBoardSize(resultSet.getInt(2));
+            retour.setUUID(resultSet.getString(3));
+            retour.setStatus(resultSet.getString(4));
+            ArrayListRetour.add(retour);
+        }
+
+        System.out.println("wait");
+        return ArrayListRetour;
     }
 }

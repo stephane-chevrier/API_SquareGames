@@ -62,7 +62,7 @@ public class GameServiceImpl implements GameService {
 
         // Transfert du game au gameEntity
         gameEntity.setGameStatus(game.getStatus());
-        gameEntity.setBoard(game.getBoard());
+//        gameEntity.setBoard(game.getBoard());
         gameEntity.setUuid(UUID.randomUUID());
         gameEntity.setBoardSize(game.getBoardSize());
 
@@ -99,7 +99,7 @@ public class GameServiceImpl implements GameService {
 
         // initialisation des valeurs des objets GameStatus, UUID, Map<CellPosition, Token>, gamePartId dans objet GamePart
         gameDtoApi.setGameStatus(gameEntity.getGameStatus());
-        gameDtoApi.setBoard(gameEntity.getBoard());
+//        gameDtoApi.setBoard(gameEntity.getBoard());
         gameDtoApi.setUuid(gameEntity.getUuid());
         gameDtoApi.setBoardSize(gameEntity.getBoardSize());
 
