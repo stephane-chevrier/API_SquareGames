@@ -15,6 +15,9 @@ import java.util.ArrayList;
 @Service
 public class GameServicePersistence {
 
+    // creation de l'objet DaoPersistence de type Sql
+    GameDao gameDao = new GameDaoMySql();
+
     /**
      * Sets game entity.
      *
@@ -22,10 +25,7 @@ public class GameServicePersistence {
      */
     public void setGameDtoPersistence(GameDtoPersistence gameDtoPersistence) throws SQLException {
 
-        // creation de l'objet DaoPersistence de type Sql
-        GameDao gameDao = new GameDaoMySql();
-
-
+        // Appel du Dao
         gameDao.addGamePersistence(gameDtoPersistence);
     }
 
@@ -37,18 +37,26 @@ public class GameServicePersistence {
      * @throws SQLException the sql exception
      */
     public ArrayList<GameEntity> getGameGetListByStatus(GameGetListByStatus gameGetListByStatus) throws SQLException {
-        GameDao gameDao = new GameDaoMySql();
-        ArrayList<GameReturnGetListByStatus> gameReturnGetListByStatuses;
+
+        // creation de l'objet gameEntity et de la liste de GameEntity pour preparation du retour
         ArrayList<GameEntity> gameEntities = new ArrayList<>();
+
+        // creation de la liste d'objet GameReturnGetListByStatus pour appeler le DAO
+        ArrayList<GameReturnGetListByStatus> gameReturnGetListByStatuses;
+
+        // Appel du Dao
         gameReturnGetListByStatuses = gameDao.getGameListPersistence(gameGetListByStatus);
-        GameEntity gameEntity = new GameEntity();
+
+        // Boucle de recuperation de chaque element de la liste de retour recupereé/transformé par le DAO
         for (int i=0; i<gameReturnGetListByStatuses.size(); i++) {
+            GameEntity gameEntity = new GameEntity();
             gameEntity.setBoardSize(gameReturnGetListByStatuses.get(i).getBoardSize());
             gameEntity.setUuid(gameReturnGetListByStatuses.get(i).getUUID());
             gameEntity.setGameStatus(gameReturnGetListByStatuses.get(i).getStatus());
             gameEntities.add(gameEntity);
         }
 
+        // retour
         return gameEntities;
     }
 }

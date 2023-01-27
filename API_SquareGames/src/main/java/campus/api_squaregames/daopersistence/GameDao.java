@@ -6,7 +6,6 @@ import campus.api_squaregames.entity.GameEntity;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.UUID;
 
 public interface GameDao {

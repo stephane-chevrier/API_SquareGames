@@ -19,7 +19,6 @@ public class GameServiceImpl implements GameService {
     @Value("en")
     private Locale langue;
 
-
     @Autowired
     List<GamePlugin> factories = new ArrayList<>();
 
@@ -81,7 +80,6 @@ public class GameServiceImpl implements GameService {
     public GameStatus getGameStatusService(int gameId) {
         // retour du status de la partie du gameID envoyé
         return gamePartMap.get(gameId).getGameStatus();
-
     }
 
     /**

@@ -73,9 +73,8 @@ public class GameDaoMySql implements GameDao {
     @Override
     public ArrayList<GameReturnGetListByStatus> getGameListPersistence(GameGetListByStatus gameGetListByStatus) throws SQLException {
 
-        // Initialisation de la liste d'objets de retour et de l'objet de retour
+        // Initialisation de la liste d'objets de retour
         ArrayList<GameReturnGetListByStatus> ArrayListRetour = new ArrayList<GameReturnGetListByStatus>();
-        GameReturnGetListByStatus retour = new GameReturnGetListByStatus();
 
         // Initialisation de la connexion si elle n'existe pas
         Connection connexion = initConnexionMySql();
@@ -93,13 +92,12 @@ public class GameDaoMySql implements GameDao {
         // recuperation des donnees du resultSet
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
         while (resultSet.next()) {
+            GameReturnGetListByStatus retour = new GameReturnGetListByStatus();
             retour.setBoardSize(resultSet.getInt(2));
             retour.setUUID(resultSet.getString(3));
             retour.setStatus(resultSet.getString(4));
             ArrayListRetour.add(retour);
         }
-
-        System.out.println("wait");
         return ArrayListRetour;
     }
 }
