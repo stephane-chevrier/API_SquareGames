@@ -1,11 +1,7 @@
 package campus.api_squaregames.entity;
 
-import fr.le_campus_numerique.square_games.engine.CellPosition;
 import fr.le_campus_numerique.square_games.engine.GameStatus;
-import fr.le_campus_numerique.square_games.engine.Token;
-import java.util.Map;
 import java.util.UUID;
-
 
 /**
  * The type Game entity.
@@ -14,6 +10,7 @@ public class GameEntity {
 
     // Creation des variables d'instances
     private GameStatus gameStatus;
+
     private UUID uuid;
 //  cet objet complexe n'est pas compris par Springs dans un corps de requete HTTP
 //    private Map<CellPosition, Token> board;

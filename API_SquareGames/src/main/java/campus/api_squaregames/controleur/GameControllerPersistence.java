@@ -28,8 +28,8 @@ public class GameControllerPersistence {
         gameServicePersistence.setGameDtoPersistence(gameDtoPersistence);
     }
 
-    @GetMapping(value = "/gamelist")
-    public ArrayList<GameEntity> getGameList(@RequestBody GameGetListByStatus gameGetListByStatus) throws SQLException {
-        return gameServicePersistence.getGameGetListByStatus(gameGetListByStatus);
-    }
+//    @GetMapping(value = "/gamelist")
+//    public ArrayList<GameEntity> getGameList(@RequestBody GameGetListByStatus gameGetListByStatus) throws SQLException {
+//        return gameServicePersistence.getGameGetListByStatus(gameGetListByStatus);
+//    }
 }
