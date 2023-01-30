@@ -1,5 +1,5 @@
 -- creation base si elle n'existe pas
-CREATE DATABASE IF NOT EXISTS square_games;
+# CREATE DATABASE IF NOT EXISTS square_games;
 
 -- suppression table si elle existe
 # DROP TABLE IF EXISTS square_games.game;

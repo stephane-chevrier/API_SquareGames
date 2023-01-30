@@ -17,7 +17,7 @@ public class GameControllerPersistence {
 
     // Creation de l'objet gameServicePersistence
     @Autowired
-    GameServicePersistence gameServicePersistence = new GameServicePersistence();
+    GameServicePersistence gameServicePersistence;
 
     /**
      * method de sauvegarde d'une partie

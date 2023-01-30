@@ -1,12 +1,10 @@
 package campus.api_squaregames.service;
 
 import campus.api_squaregames.dtopersistencee.*;
-import campus.api_squaregames.entity.GameEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 
 /**
  * The type Game service persistence.
@@ -23,9 +21,10 @@ public class GameServicePersistence {
      * @param gameDtoPersistence the game dto persistence
      */
     public void setGameDtoPersistence(GameDtoPersistence gameDtoPersistence) {
-
-        // Appel du Dao
+        System.out.println("toto");
+        // Appel du Dao pour enregistrer le Dto
         gameDao.save(gameDtoPersistence);
+
     }
 
     /**

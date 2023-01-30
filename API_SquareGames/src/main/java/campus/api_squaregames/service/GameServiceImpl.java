@@ -29,6 +29,7 @@ public class GameServiceImpl implements GameService {
      */
     public GameEntity createGameService(GameCreationParams gameCreationParams, String langage) {
 
+        // affiche le contenu de la clef messageBienvenue dans le fichier message_XX
         this.langue = Locale.forLanguageTag(langage);
         ResourceBundle resourceBundle = ResourceBundle.getBundle("message",langue);
         System.out.println(resourceBundle.getString("messageBienvenue"));

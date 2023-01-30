@@ -1,10 +1,7 @@
 package campus.api_squaregames.dtopersistencee;
 
 import fr.le_campus_numerique.square_games.engine.GameStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -12,6 +9,7 @@ import java.util.UUID;
  * The type Game dto persistence.
  */
 @Entity
+//@Table(name="toto")
 public class GameDtoPersistence {
 
     // Creation des variables d'instances
@@ -20,7 +18,7 @@ public class GameDtoPersistence {
     private long id;
     private UUID uuid;
     private int boardSize;
-    private GameStatus gameStatus;
+    private String gameStatus;
 
 
     /**
@@ -28,7 +26,7 @@ public class GameDtoPersistence {
      *
      * @return the game status
      */
-    public GameStatus getGameStatus() {
+    public String getGameStatus() {
         return gameStatus;
     }
 
@@ -38,7 +36,7 @@ public class GameDtoPersistence {
      * @param gameStatus the game status
      */
     public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
+        this.gameStatus = gameStatus.toString();
     }
 
     /**
