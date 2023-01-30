@@ -1,8 +1,7 @@
 package campus.api_squaregames.service;
 
-import campus.api_squaregames.controleur.GamePlugin;
-import campus.api_squaregames.dtoapi.GameCreationParams;
-import campus.api_squaregames.dtoapi.GameDtoApi;
+import campus.api_squaregames.dtoweb.GameCreationParams;
+import campus.api_squaregames.dtoweb.GameDtoWeb;
 import campus.api_squaregames.entity.GameEntity;
 import fr.le_campus_numerique.square_games.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,20 +89,20 @@ public class GameServiceImpl implements GameService {
      * @return GamePart
      */
     @Override
-    public GameDtoApi getGamePart(GameEntity gameEntity /*, String entete */) {
+    public GameDtoWeb getGamePart(GameEntity gameEntity /*, String entete */) {
 
 
         // creation d'un objet GamePart
-        GameDtoApi gameDtoApi = new GameDtoApi();
+        GameDtoWeb gameDtoWeb = new GameDtoWeb();
 
         // initialisation des valeurs des objets GameStatus, UUID, Map<CellPosition, Token>, gamePartId dans objet GamePart
-        gameDtoApi.setGameStatus(gameEntity.getGameStatus());
+        gameDtoWeb.setGameStatus(gameEntity.getGameStatus());
 //        gameDtoApi.setBoard(gameEntity.getBoard());
-        gameDtoApi.setUuid(gameEntity.getUuid());
-        gameDtoApi.setBoardSize(gameEntity.getBoardSize());
+        gameDtoWeb.setUuid(gameEntity.getUuid());
+        gameDtoWeb.setBoardSize(gameEntity.getBoardSize());
 
         // retour de l'objet GamePart qui contient les elements d'une partie
-        return gameDtoApi;
+        return gameDtoWeb;
     }
 }
 

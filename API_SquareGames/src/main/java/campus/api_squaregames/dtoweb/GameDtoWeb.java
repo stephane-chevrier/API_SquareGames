@@ -1,18 +1,16 @@
-package campus.api_squaregames.dtoapi;
+package campus.api_squaregames.dtoweb;
 
-import fr.le_campus_numerique.square_games.engine.CellPosition;
 import fr.le_campus_numerique.square_games.engine.GameStatus;
-import fr.le_campus_numerique.square_games.engine.Token;
-import java.util.Map;
+
 import java.util.UUID;
 
-
-public class GameDtoApi {
+    public class GameDtoWeb {
 
     // création des variables d'instance
+    private long id;
+
     private GameStatus gameStatus;
     private UUID uuid;
-    private Map<CellPosition, Token> board;
     private int BoardSize;
 
     public int getBoardSize() {
@@ -37,13 +35,6 @@ public class GameDtoApi {
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
-    /**
-     * Setter de board
-     * @param board
-     */
-    public void setBoard(Map<CellPosition, Token> board) {
-        this.board = board;
-    }
 
     /**
      * Getter de gameStatus
@@ -59,11 +50,5 @@ public class GameDtoApi {
         return uuid;
     }
 
-    /**
-     * Getter de board
-     */
-    public Map<CellPosition, Token> getBoard() {
-        return board;
-    }
 
 }

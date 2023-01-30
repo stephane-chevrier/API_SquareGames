@@ -1,7 +1,7 @@
 package campus.api_squaregames.controleur;
 
-import campus.api_squaregames.dtoapi.GameCreationParams;
-import campus.api_squaregames.dtoapi.GameDtoApi;
+import campus.api_squaregames.dtoweb.GameCreationParams;
+import campus.api_squaregames.dtoweb.GameDtoWeb;
 import campus.api_squaregames.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,11 +26,11 @@ public class GameController {
      * @return
      */
     @PostMapping(value = "/games")
-    public GameDtoApi createGame(@RequestBody GameCreationParams gameCreationParams, @RequestHeader("Accept-language") String langage) {
+    public GameDtoWeb createGame(@RequestBody GameCreationParams gameCreationParams, @RequestHeader("Accept-language") String langage) {
 
-        GameDtoApi gameDtoApi = gameService.getGamePart(gameService.createGameService(gameCreationParams, langage));
+        GameDtoWeb gameDtoWeb = gameService.getGamePart(gameService.createGameService(gameCreationParams, langage));
         // Appel du service de creation d'une partie et retour des attributs de Game necessaires
-        return gameDtoApi;
+        return gameDtoWeb;
     }
     /**
      * method de creation d'une partie

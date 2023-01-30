@@ -12,8 +12,7 @@ public class GameEntity {
     private GameStatus gameStatus;
 
     private UUID uuid;
-//  cet objet complexe n'est pas compris par Springs dans un corps de requete HTTP
-//    private Map<CellPosition, Token> board;
+
     private int boardSize;
 
 
@@ -93,11 +92,4 @@ public class GameEntity {
         }
     }
 
-//    public Map<CellPosition, Token> getBoard() {
-//        return board;
-//    }
-
-//    public void setBoard(Map<CellPosition, Token> board) {
-//        this.board = board;
-//    }
 }

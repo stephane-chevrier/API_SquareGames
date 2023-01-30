@@ -1,4 +1,4 @@
-package campus.api_squaregames.dtoapi;
+package campus.api_squaregames.dtoweb;
 
 /**
  * Nom             GameCreationParams

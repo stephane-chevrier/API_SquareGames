@@ -1,16 +1,13 @@
 package campus.api_squaregames.controleur;
 
-import campus.api_squaregames.dtopersistencee.*;
-import campus.api_squaregames.entity.GameEntity;
+import campus.api_squaregames.dtoweb.GameDtoWeb;
 import campus.api_squaregames.service.GameServicePersistence;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 @RestController
 public class GameControllerPersistence {
@@ -24,8 +21,8 @@ public class GameControllerPersistence {
      * @param
      */
     @PostMapping(value = "/addgame")
-    public void sauveGame(@RequestBody GameDtoPersistence gameDtoPersistence) throws SQLException {
-        gameServicePersistence.setGameDtoPersistence(gameDtoPersistence);
+    public void sauveGame(@RequestBody GameDtoWeb gameDtoWeb) throws SQLException {
+        gameServicePersistence.setGameDtoPersistence(gameDtoWeb);
     }
 
 //    @GetMapping(value = "/gamelist")

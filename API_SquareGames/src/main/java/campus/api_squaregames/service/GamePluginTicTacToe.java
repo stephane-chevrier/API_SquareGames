@@ -1,10 +1,9 @@
-package campus.api_squaregames.controleur;
+package campus.api_squaregames.service;
 
 import fr.le_campus_numerique.square_games.engine.GameFactory;
 import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import java.util.Locale;
 
 @Component
 public class GamePluginTicTacToe implements GamePlugin {

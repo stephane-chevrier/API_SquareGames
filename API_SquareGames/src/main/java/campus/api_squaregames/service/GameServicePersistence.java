@@ -1,5 +1,6 @@
 package campus.api_squaregames.service;
 
+import campus.api_squaregames.dtoweb.GameDtoWeb;
 import campus.api_squaregames.dtopersistencee.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,14 @@ public class GameServicePersistence {
      *
      * @param gameDtoPersistence the game dto persistence
      */
-    public void setGameDtoPersistence(GameDtoPersistence gameDtoPersistence) {
-        System.out.println("toto");
+    public void setGameDtoPersistence(GameDtoWeb gameDtoWeb) {
+
+        GameDtoPersistence gameDtoPersistence = new GameDtoPersistence();
+        gameDtoPersistence.setGameStatus(gameDtoWeb.getGameStatus());
+        gameDtoPersistence.setUuid(gameDtoWeb.getUuid());
+        gameDtoPersistence.setBoardSize(gameDtoWeb.getBoardSize());
+
+
         // Appel du Dao pour enregistrer le Dto
         gameDao.save(gameDtoPersistence);
 
