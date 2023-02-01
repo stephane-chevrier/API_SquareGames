@@ -6,49 +6,112 @@ import java.util.UUID;
 
     public class GameDtoWeb {
 
-    // création des variables d'instance
-    private long id;
+        // création des variables d'instance
+        private GameStatus gameStatus;
+        private UUID uuid;
+        private int BoardSize;
+        private String name;
+        private int positionX;
+        private int positionY;
 
-    private GameStatus gameStatus;
-    private UUID uuid;
-    private int BoardSize;
-
-    public int getBoardSize() {
+        /**
+         * Gets board size.
+         *
+         * @return the board size
+         */
+        public int getBoardSize() {
         return BoardSize;
     }
 
-    public void setBoardSize(int boardSize) {
+        /**
+         * Sets board size.
+         *
+         * @param boardSize the board size
+         */
+        public void setBoardSize(int boardSize) {
         BoardSize = boardSize;
     }
 
-    /**
-     * Setter de gameStatus
-     * @param gameStatus
-     */
-    public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
-    }
-    /**
-     * Setter de uuid
-     * @param uuid
-     */
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
+        /**
+         * Setter de gameStatus
+         * @param gameStatus
+         */
+        public void setGameStatus(GameStatus gameStatus) {
+            this.gameStatus = gameStatus;
+        }
+        /**
+         * Setter de uuid
+         * @param uuid
+         */
+        public void setUuid(UUID uuid) {
+            this.uuid = uuid;
+        }
 
-    /**
-     * Getter de gameStatus
-     */
-    public GameStatus getGameStatus() {
-        return gameStatus;
+        /**
+         * Getter de gameStatus
+         */
+        public GameStatus getGameStatus() {
+            return gameStatus;
+        }
+
+        /**
+         * Getter de uuid
+         */
+        public UUID getUuid() {
+            return uuid;
+        }
+
+        /**
+         * Gets name.
+         *
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * Sets name.
+         *
+         * @param name the name
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        /**
+         * Gets position x.
+         *
+         * @return the position x
+         */
+        public int getPositionX() {
+            return positionX;
+        }
+
+        /**
+         * Sets position x.
+         *
+         * @param positionX the position x
+         */
+        public void setPositionX(int positionX) {
+            this.positionX = positionX;
+        }
+
+        /**
+         * Gets position y.
+         *
+         * @return the position y
+         */
+        public int getPositionY() {
+            return positionY;
+        }
+
+        /**
+         * Sets position y.
+         *
+         * @param positionY the position y
+         */
+        public void setPositionY(int positionY) {
+            this.positionY = positionY;
+        }
     }
-
-    /**
-     * Getter de uuid
-     */
-    public UUID getUuid() {
-        return uuid;
-    }
-
-
-}

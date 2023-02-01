@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Configuration de la sortie Console -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- Configuration de la sortie fichier -->
+    <appender name="FICHIER" class="ch.qos.logback.core.FileAppender">
+        <file>
+            application.log
+        </file>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{dd-MM-yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+
+        <!-- ceci conservera 10 jours d'historique -->
+        <!-- divisés en fichiers de 10 Mo et -->
+        <!-- lorsque la taille totale de tous les fichiers atteindra 100 Mo, les fichiers les plus anciens seront supprimés.-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${LOG_PATH}/archived/log_%d{dd-MM-yyyy}_%i.log
+            </fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!-- A partir du niveau Warn, mettre à jour la console et le fichier -->
+    <root level="warn">
+        <appender-ref ref="FICHIER"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
+
+<!--<configuration>-->
+<!--    // Pattern de présentation du log-->
+<!--    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--            <Pattern>-->
+<!--                %d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n-->
+<!--                %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n-->
+<!--            </Pattern>-->
+<!--        </layout>-->
+<!--    </appender>-->
+<!--    // Niveau de journalisation personnalisé pour tous les packages “fr.”-->
+<!--    <logger name="campus.api_squaregames" level="warn" additivity="false">-->
+<!--        <appender-ref ref="CONSOLE"/>-->
+<!--    </logger>-->
+<!--    <root level="error"> // Niveau de journalisation par défaut-->
+<!--        <appender-ref ref="CONSOLE"/>-->
+<!--    </root>-->
+<!--</configuration>-->
+
+
+
+
+

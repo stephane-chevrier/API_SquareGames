@@ -3,7 +3,6 @@ package campus.api_squaregames.service;
 
 import campus.api_squaregames.dtoweb.GameCreationParams;
 import campus.api_squaregames.dtoweb.GameDtoWeb;
-import campus.api_squaregames.entity.GameEntity;
 import fr.le_campus_numerique.square_games.engine.GameStatus;
 
 public interface GameService {

@@ -25,6 +25,16 @@ public class GameControllerPersistence {
         gameServicePersistence.setGameDtoPersistence(gameDtoWeb);
     }
 
+    /**
+     * method de sauvegarde d'un tokken
+     * @param
+     */
+    @PostMapping(value = "/addtoken")
+    public void sauveToken(@RequestBody GameDtoWeb gameDtoWeb) throws SQLException {
+        gameServicePersistence.setTokenDtoPersistence(gameDtoWeb);
+    }
+
+
 //    @GetMapping(value = "/gamelist")
 //    public ArrayList<GameEntity> getGameList(@RequestBody GameGetListByStatus gameGetListByStatus) throws SQLException {
 //        return gameServicePersistence.getGameGetListByStatus(gameGetListByStatus);
