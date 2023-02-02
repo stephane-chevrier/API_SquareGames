@@ -1,5 +1,6 @@
-package campus.api_squaregames;
+package campus.api_squaregames.hearthbeat;
 
+import campus.api_squaregames.service.GameCatalog;
 import fr.le_campus_numerique.square_games.engine.GameFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,5 +1,6 @@
-package campus.api_squaregames;
+package campus.api_squaregames.hearthbeat;
 
+import campus.api_squaregames.hearthbeat.HeartbeatSensor;
 import org.springframework.stereotype.Service;
 
 @Service

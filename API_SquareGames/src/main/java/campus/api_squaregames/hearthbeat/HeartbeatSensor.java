@@ -1,4 +1,4 @@
-package campus.api_squaregames;
+package campus.api_squaregames.hearthbeat;
 
 public interface HeartbeatSensor {
 

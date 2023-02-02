@@ -14,7 +14,7 @@ public class UserDtoPersistence implements UserDetails {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
 
-    @ElementCollection
+    @ElementCollection (fetch = FetchType.EAGER)
     private List<String> authorities;
 
     private String password;
@@ -30,6 +30,11 @@ public class UserDtoPersistence implements UserDetails {
     private boolean enabled = true;
 
     public UserDtoPersistence() {
+    }
+
+    public UserDtoPersistence(String username,String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public UserDtoPersistence(String authorities, String password, String username, boolean accountNonExpired,

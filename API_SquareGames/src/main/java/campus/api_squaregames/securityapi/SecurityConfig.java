@@ -1,10 +1,14 @@
-package campus.api_squaregames;
+package campus.api_squaregames.securityapi;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -15,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig {
 
     @Autowired
@@ -23,13 +28,15 @@ public class SecurityConfig {
     @Autowired
     private JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter;
 
+    @Autowired
+    private AuthenticationConfiguration authenticationConfiguration;
+
     public SecurityConfig(final MyUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
-    {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         final AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.userDetailsService(userDetailsService);
@@ -61,14 +68,14 @@ public class SecurityConfig {
         // Définir les autorisations d’accès aux ressources
         http.authorizeHttpRequests()
                 // Les accès sans autorisation
-                .requestMatchers("api/public").permitAll()
+                .requestMatchers("/api/public/login").permitAll()
                 // Les autres accès
                 .anyRequest().authenticated();
 
 
-    // Injecte notre filtre pour qu’il s’exécute avant le traitement du
-    // filtre UsernamePasswordAuthenticationFilter
-    http.addFilterBefore(jwtTokenAuthenticationFilter,UsernamePasswordAuthenticationFilter.class);
+        // Injecte notre filtre pour qu’il s’exécute avant le traitement du
+        // filtre UsernamePasswordAuthenticationFilter
+        http.addFilterBefore(jwtTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -76,5 +83,10 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }

@@ -1,4 +1,4 @@
-package campus.api_squaregames;
+package campus.api_squaregames.securityapi;
 
 import campus.api_squaregames.dtopersistencee.UserDtoPersistenceRepository;
 import io.jsonwebtoken.Claims;
@@ -29,6 +29,8 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenAuthenticationFilter.class);
 
+    protected static String keyFilter = "Sq2#@";
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -47,31 +49,29 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
                 // On “parse” le token en utilisant la même clé de signature qui sera
                 // utilisee pour generer le token à l’authentification (“Sq2#@”)
                 final Claims claims =
-                        Jwts.parser().setSigningKey("Sq2#@".getBytes()).parseClaimsJws(token)
+                        Jwts.parser().setSigningKey(keyFilter.getBytes()).parseClaimsJws(token)
                                 .getBody();
 
                 // si la date d'expiration du jeton n'est pas expire
-                if (claims.getExpiration().before(new Date())) {
+                if (claims.getExpiration().after(new Date())) {
 
                     // On recupere le nom de l’utilisateur indique dans l’objet
                     final String username = claims.getSubject();
 
                     // On recupere les informations de l’utilisateur grace au repository
-                    final UserDetails userDetails = userDtoPersistenceRepository.findByUsername(username).get(0); //.orElse(null);
-                    final UsernamePasswordAuthenticationToken authentication = new
-                            UsernamePasswordAuthenticationToken(
-                                userDetails, null,
-                                userDetails == null ? List.of() : userDetails.getAuthorities()
-                            );
+                    final UserDetails userDetails = userDtoPersistenceRepository.findByUsername(username);
+                    final UsernamePasswordAuthenticationToken
+                            authentication = new UsernamePasswordAuthenticationToken(
+                            userDetails, null,
+                            userDetails == null ?
+                                    List.of() : userDetails.getAuthorities()
+                    );
 
                     // Ajoute les informations de l’utilisateur
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                     // Met à jour le contexte d’authentification
                     SecurityContextHolder.getContext().setAuthentication(authentication);
-
-                    // Important : permet à Spring de continuer le traitement !
-                    filterChain.doFilter(request, response);
 
                 } else {
                     // implementation du .log de l'erreur rencontree
@@ -85,6 +85,9 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
             // implementation du .log de l'erreur rencontree
             LOGGER.warn("La requête ne comporte pas d'entête, requete : "+request);
         }
-    }
 
+        // Important : permet à Spring de continuer le traitement !
+        filterChain.doFilter(request, response);
+
+    }
 }

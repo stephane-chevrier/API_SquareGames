@@ -1,4 +1,4 @@
-package campus.api_squaregames;
+package campus.api_squaregames.service;
 
 import java.util.Map;
 import java.util.function.Function;
