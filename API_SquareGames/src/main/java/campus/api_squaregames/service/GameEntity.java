@@ -15,6 +15,24 @@ public class GameEntity {
 
     private int boardSize;
 
+    /**
+     * Instantiates a new Game entity.
+     */
+    public GameEntity() {
+    }
+
+    /**
+     * Instantiates a new Game entity.
+     *
+     * @param gameStatus the game status
+     * @param uuid       the uuid
+     * @param boardSize  the board size
+     */
+    public GameEntity(GameStatus gameStatus, UUID uuid, int boardSize) {
+        this.gameStatus = gameStatus;
+        this.uuid = uuid;
+        this.boardSize = boardSize;
+    }
 
     /**
      * Gets board size.

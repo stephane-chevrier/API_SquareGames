@@ -1,9 +1,6 @@
 package campus.api_squaregames.dtopersistencee;
 
-import fr.le_campus_numerique.square_games.engine.CellPosition;
 import jakarta.persistence.*;
-
-import java.util.UUID;
 
 /**
  * The type Tokken dto persistence.

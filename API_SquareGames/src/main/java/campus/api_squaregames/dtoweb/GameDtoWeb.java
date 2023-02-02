@@ -14,6 +14,9 @@ import java.util.UUID;
         private int positionX;
         private int positionY;
 
+        public GameDtoWeb() {
+        }
+
         /**
          * Gets board size.
          *
