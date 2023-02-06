@@ -6,7 +6,7 @@ import java.util.UUID;
 /**
  * The type Tokken entity.
  */
-public class tokkenEntity {
+public class TokkenEntity {
 
 // Création des variables d'instance
     UUID uuid;

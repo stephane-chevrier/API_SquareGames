@@ -1,9 +1,12 @@
-package campus.api_squaregames.securityapi;
+package campus.api_squaregames.controleur;
 
 import campus.api_squaregames.dtopersistencee.UserDtoPersistence;
-import campus.api_squaregames.dtopersistencee.UserDtoPersistenceRepository;
-import campus.api_squaregames.dtoweb.AuthentificationRequest;
+import campus.api_squaregames.dtopersistencee.UserDaoPersistenceRepository;
 import campus.api_squaregames.dtoweb.UserDtoWeb;
+import campus.api_squaregames.dtoweb.UserDtoWebAuthentification;
+import campus.api_squaregames.securityapi.JwtTokenAuthenticationFilter;
+import campus.api_squaregames.securityapi.Roles;
+import campus.api_squaregames.securityapi.SecurityConfig;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,33 +32,27 @@ import java.util.stream.Collectors;
 public class AuthentificationApi {
 
     @Autowired
-    private final AuthenticationManager authenticationManager;
-
-    public AuthentificationApi(AuthenticationManager authenticationManager, SecurityConfig securityConfig) {
-        this.authenticationManager = authenticationManager;
-        this.securityConfig = securityConfig;
-    }
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserDtoPersistenceRepository userDao;
+    private UserDaoPersistenceRepository userDao;
 
     @Autowired
-    private final SecurityConfig securityConfig;
+    private SecurityConfig securityConfig;
 
-    private static final Long tokenLifeTime = 3600 * 1000L;
+    private static final Long tokenLifeTime = 3600 * 1000L ;
 
     @Secured(Roles.ROLE_ADMIN)
     @PostMapping("/create")
-    public void create(@RequestBody UserDtoWeb userDtoWeb) {
+    public void create(@RequestBody UserDtoWebAuthentification userDtoWeb) {
         UserDtoPersistence userDtoPersistence = new UserDtoPersistence(
                 userDtoWeb.getUsername(),
                 securityConfig.passwordEncoder().encode(userDtoWeb.getPassword()));
         userDao.save(userDtoPersistence);
     }
 
-
     @PostMapping("/login")
-    public ResponseEntity<UserDtoWeb> login(@RequestBody @Valid AuthentificationRequest request) {
+    public ResponseEntity<UserDtoWeb> login(@RequestBody @Valid UserDtoWebAuthentification request) {
 
         try {
             final Authentication authenticate = authenticationManager.authenticate(

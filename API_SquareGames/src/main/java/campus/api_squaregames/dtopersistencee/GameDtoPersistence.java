@@ -13,8 +13,11 @@ import java.util.UUID;
 //@Table(name="toto")
 public class GameDtoPersistence {
 
+    // creation des champs de la table correspondante
+    // declaration nécessaire a la creation de la clef etrangere dans la table TokkenDtoPersistence
     @OneToMany ( targetEntity=TokenDtoPersistence.class, mappedBy="gameDtoPersistence" )
     private List<TokenDtoPersistence> tokenDtoPersistence = new ArrayList<>();
+    // clef de la table
     @Id
     private UUID uuidGame;
     private int boardSize;

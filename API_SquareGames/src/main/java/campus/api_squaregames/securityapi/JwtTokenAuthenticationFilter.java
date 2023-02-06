@@ -1,6 +1,6 @@
 package campus.api_squaregames.securityapi;
 
-import campus.api_squaregames.dtopersistencee.UserDtoPersistenceRepository;
+import campus.api_squaregames.dtopersistencee.UserDaoPersistenceRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
@@ -25,7 +25,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     // creation de l'objet userDtoPersistenceRepository
     @Autowired
-    UserDtoPersistenceRepository userDtoPersistenceRepository;
+    UserDaoPersistenceRepository userDaoPersistenceRepository;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenAuthenticationFilter.class);
 
@@ -59,7 +59,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
                     final String username = claims.getSubject();
 
                     // On recupere les informations de l’utilisateur grace au repository
-                    final UserDetails userDetails = userDtoPersistenceRepository.findByUsername(username);
+                    final UserDetails userDetails = userDaoPersistenceRepository.findByUsername(username);
                     final UsernamePasswordAuthenticationToken
                             authentication = new UsernamePasswordAuthenticationToken(
                             userDetails, null,

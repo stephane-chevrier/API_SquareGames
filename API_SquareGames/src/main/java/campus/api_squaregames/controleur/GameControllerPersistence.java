@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.sql.SQLException;
 
+/**
+ * The type Game controller persistence.
+ */
 @RestController
 public class GameControllerPersistence {
 

@@ -5,9 +5,6 @@ import campus.api_squaregames.dtopersistencee.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
-
-
 /**
  * The type Game service persistence.
  */
@@ -15,13 +12,10 @@ import javax.validation.constraints.NotNull;
 public class GameServicePersistence {
 
     @Autowired
-    private GameDtoPersistenceRepository gameDao;
+    private GameDaoPersistenceRepository gameDao;
 
     @Autowired
-    private TokenDtoPersistenceRepository tokenDao;
-
-    @Autowired
-    private UserDtoPersistenceRepository userDao;
+    private TokenDaoPersistenceRepository tokenDao;
 
     /**
      * Sets game entity.

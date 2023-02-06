@@ -9,11 +9,12 @@ import jakarta.persistence.*;
 //@Table(name="toto")
 public class TokenDtoPersistence {
 
-    // Creation des variables d'instances
+    // Creation des variables d'instances correspondantes à la table
+    // Clef de la table generee automatiquement
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long idToken;
-
+    // creation de la clef etrangere en line avec la table game(parties)
     @ManyToOne @JoinColumn(name="uuidgame", nullable=false)
     private GameDtoPersistence gameDtoPersistence;
     private String name;
