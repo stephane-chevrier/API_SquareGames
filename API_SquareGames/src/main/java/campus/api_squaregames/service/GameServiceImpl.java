@@ -6,10 +6,24 @@ import fr.le_campus_numerique.square_games.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.*;
 
 @Service
 public class GameServiceImpl implements GameService {
+
+    // initialisation du chemin racine de gamestats
+    @Value("url.racine.gameStats")
+    private String urlRacineGameStats;
+
+    // initialisation chemin gamepart de gamestats
+    @Value("url.gamepart.gameStats")
+    private String urlGamePartGameStats;
+
+    // initialisation chemin info de gamestats
+    @Value("url.info.gameStats")
+    private String urlInfoGameStats;
 
     // creation des variables d'instance
     public Map<UUID, GameEntity> gamePartMap = new HashMap<>();
@@ -102,6 +116,18 @@ public class GameServiceImpl implements GameService {
 
         // retour de l'objet GamePart qui contient les elements d'une partie
         return gameDtoWeb;
+    }
+
+    @Override
+    public Object getGamePartSquareStats(Long gameId) {
+
+        // initialisation de l'url de la requete envoyee a l'API_GameStats
+//        String url = "http://localhost:8081/gamepart/1/info";
+        String url = urlRacineGameStats+urlGamePartGameStats+"/"+gameId+urlInfoGameStats;
+
+        RestTemplate restTemplate = new RestTemplate();
+        Object object = restTemplate.getForObject(url, Object.class);
+        return object;
     }
 }
 

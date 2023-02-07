@@ -14,7 +14,7 @@ public class TokenDtoPersistence {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long idToken;
-    // creation de la clef etrangere en line avec la table game(parties)
+    // creation de la clef etrangere en lien avec la table game(parties)
     @ManyToOne @JoinColumn(name="uuidgame", nullable=false)
     private GameDtoPersistence gameDtoPersistence;
     private String name;

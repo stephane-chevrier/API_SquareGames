@@ -24,4 +24,6 @@ public interface GameService {
      * @return GamePart
      */
     GameDtoWeb getGamePart(GameEntity gameEntity);
+
+    Object getGamePartSquareStats(Long gameId);
 }

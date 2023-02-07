@@ -36,10 +36,10 @@ CREATE TABLE IF NOT EXISTS square_games2.tokenDtoPersistence (
 
 -- creation de la table gamepart de la base square_stats
 CREATE TABLE IF NOT EXISTS square_stats.gamepart (
-     id             int PRIMARY KEY NOT NULL,
+     id             bigint PRIMARY KEY NOT NULL,
      game_id        varchar(20),
      game_status    varchar(20),
-     current_player int
+     current_player bigint
 );
 INSERT INTO
     square_stats.gamepart(id,game_id, game_status, current_player)
@@ -52,9 +52,9 @@ VALUES (1,'tictactoe','ONGOING',1),
 
 -- creation de la table gamepartplayer de la base square_stats
 CREATE TABLE IF NOT EXISTS square_stats.gamepartplayer (
-       id_gamepart             int PRIMARY KEY NOT NULL,
+       id_gamepart             bigint PRIMARY KEY NOT NULL,
        FOREIGN KEY (id_gamepart) REFERENCES gamepart(id)  ON DELETE CASCADE,
-       player                  int
+       player                  bigint
 );
 INSERT INTO square_stats.gamepartplayer(id_gamepart, player)
 VALUES (1,1),

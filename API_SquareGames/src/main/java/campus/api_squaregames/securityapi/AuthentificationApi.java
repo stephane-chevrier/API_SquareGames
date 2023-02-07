@@ -1,4 +1,4 @@
-package campus.api_squaregames.controleur;
+package campus.api_squaregames.securityapi;
 
 import campus.api_squaregames.dtopersistencee.UserDtoPersistence;
 import campus.api_squaregames.dtopersistencee.UserDaoPersistenceRepository;
